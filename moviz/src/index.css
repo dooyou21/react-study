@@ -6,6 +6,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--bg-silver-color);
+  height: 100%;
 }
 
 code {
@@ -18,4 +19,10 @@ code {
   --bg-gray-color: #dddfe6;
   --bg-silver-color: #f4f5f9;
   --point-blue-black-color: #252c41;
+  --point-gray-color: #acaeb5;
+}
+
+html,
+#root {
+  height: 100%;
 }

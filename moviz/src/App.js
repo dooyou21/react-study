@@ -16,58 +16,43 @@ class App extends Component {
   componentWillMount() {}
 
   componentDidMount() {
-
-    setTimeout(() => {
-      this.setState({
-        movies: [
-          {
-            title: "dummy"
-          }, {
-            title: "The Load Of The Rings - The Fellowship of the Ring",
-            poster: "https://images-na.ssl-images-amazon.com/images/I/51Qvs9i5a%2BL.jpg"
-          }, {
-            title: "The Load Of The Rings - The Two Towers",
-            poster: "http://mblogthumb1.phinf.naver.net/20150123_32/syshnj_1421977007322Tadsq_JPEG/lo" +
-                "rd_of_the_rings_the_two_towers_ver3.jpg?type=w2"
-          }, {
-            title: "The Load Of The Rings - The Return Of The King",
-            poster: "https://pds.joins.com/news/component/joongang_sunday/201509/20/241.png"
-          }, {
-            title: "The Hobbit - An Unexpected Journey",
-            poster: "https://upload.wikimedia.org/wikipedia/en/b/b3/The_Hobbit-_An_Unexpected_Journey" +
-                ".jpeg"
-          }, {
-            title: "The Hobbit - The Desolation of Smaug",
-            poster: "https://upload.wikimedia.org/wikipedia/en/4/4f/The_Hobbit_-_The_Desolation_of_Sm" +
-                "aug_theatrical_poster.jpg"
-          }, {
-            title: "The Hobbit - The Battle of the Five Armies",
-            poster: "https://upload.wikimedia.org/wikipedia/en/0/0e/The_Hobbit_-_The_Battle_of_the_Fi" +
-                "ve_Armies.jpg"
-          }, {
-            title: "Ready Player One",
-            poster: "https://m.media-amazon.com/images/M/MV5BY2JiYTNmZTctYTQ1OC00YjU4LWEwMjYtZjkwY2Y5" +
-                "MDI0OTU3XkEyXkFqcGdeQXVyNTI4MzE4MDU@._V1_.jpg"
-          }
-        ]
-      })
-    }, 3000);
+    this._getMovies();
   }
 
+  _getMovies = async() => {
+    const movies = await this._callApi();
+    this.setState({movies});
+  }
+
+  _callApi = () => {
+    return fetch('https://yts.am/api/v2/list_movies.json?sort_by=download_count')
+      .then(response => response.json())
+      .then(({data}) => data.movies)
+      .catch(error => console.error(error));
+  }
   _renderMovies = () => {
     const movies = this
       .state
       .movies
-      .map((movie, index) => {
-        return <Movie key={index} title={movie.title} poster={movie.poster}/>
+      .map((movie) => {
+        console.log(movie);
+        return <Movie
+          key={movie.id}
+          title={movie.title_english}
+          poster={movie.large_cover_image}
+          genres={movie.genres}
+          synopsis={movie.synopsis}/>
       });
 
     return movies;
   }
   render() {
+    const {movies} = this.state;
     return (
-      <div className="App">
-        {this.state.movies
+      <div className={movies
+        ? "App"
+        : "App--loading"}>
+        {movies
           ? this._renderMovies()
           : "Loading"}
       </div>

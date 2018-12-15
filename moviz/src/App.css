@@ -1,3 +1,16 @@
 .App {
+  padding: 50px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: var(--point-blue-black-color);
+}
+
+.App--loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
   color: var(--point-blue-black-color);
 }
