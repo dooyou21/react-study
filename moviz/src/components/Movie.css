@@ -1,0 +1,9 @@
+.movie {
+  margin: 10px;
+}
+img {
+  height: 200px;
+  max-width: 133px;
+  object-fit: contain;
+  box-shadow: 0 0 10px var(--light-shadow-color);
+}
