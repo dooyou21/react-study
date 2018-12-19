@@ -12,8 +12,10 @@ const userReducer = (state = {}, action) => {
         age: action.payload
       };
       break;
+    case "ERROR":
+      throw new Error('tweets reducer type not exist');
     default:
-      // throw new Error('user state type not exist');
+      // do nothing;
   }
   return state;
 };

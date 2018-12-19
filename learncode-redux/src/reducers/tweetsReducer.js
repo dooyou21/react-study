@@ -7,7 +7,7 @@ const tweetsReducer = (state = [], action) => {
       ]
       break;
     default:
-      // console.warn('tweets reducer type not exist');
+      // do nothing;
   }
   return state;
 };
