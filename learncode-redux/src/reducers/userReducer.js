@@ -7,12 +7,12 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "FETCH_USERS_START":
+    case "FETCH_USERS_PENDING":
       return {
         ...state,
         fetching: true
       }
-    case "FETCH_USERS_ERROR":
+    case "FETCH_USERS_REJECT":
       return {
         ...state,
         fetching: false,
@@ -40,6 +40,7 @@ const userReducer = (state = initialState, action) => {
     case "ERROR":
       throw new Error('tweets reducer type not exist');
     default:
+      console.log(action);
       // do nothing;
   }
   return state;
