@@ -4,7 +4,6 @@ import {addTodo} from '../actions';
 
 const AddTodo = ({dispatch}) => {
   let input
-
   return (
     <div>
       <form

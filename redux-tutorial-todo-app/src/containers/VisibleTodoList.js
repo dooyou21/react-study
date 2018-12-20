@@ -16,12 +16,13 @@ const getVisibleTodos = (todos, filter) => {
   }
 }
 
-const mapStateToProps = state => ({
-  todos: getVisibleTodos(state.todo, state.visibilityFilter)
+const mapStateToProps = state => ({ // components/App.js 에서 createStore 한 것을  props 로 넘겨주는데, 그거 받아옴
+  todos: getVisibleTodos(state.todos, state.visibilityFilter)
 });
 
 const mapDispatchToProps = dispatch => ({
   toggleTodo: id => dispatch(toggleTodo(id))
 });
 
+//react-redux connect
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
