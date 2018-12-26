@@ -1,3 +1,93 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-jp.css);
+
+:root {
+  --base-color: #ffffff;
+  --text-color: #011627;
+  --light-gray-color: #ececec;
+  --gray-color: #d8d8d8;
+  --dark-gray-color: #adadad;
+  --shadow-color: rgba(1, 22, 39, 0.17);
+}
+
+* {
+  font-family: "Spoqa Han Sans", "Spoqa Han Sans JP", "Sans-serif";
+  box-sizing: border-box;
+  -webkit-font-smoothing: "antialiased";
+}
+
 body {
-  line-height: 2;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--base-color);
+  margin: 0;
+  color: var(--text-color);
+}
+input[type="text"] {
+  background: var(--light-gray-color);
+  line-height: 20px;
+  font-size: 15px;
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: none;
+  border: 1px solid var(--gray-color);
+}
+
+input[type="text"]::placeholder {
+  color: var(--dark-gray-color);
+}
+input[type="text"]:focus,
+textarea:focus,
+div[contenteditable="true"]:focus {
+  outline: none;
+  box-shadow: none;
+  border: 1px solid var(--dark-gray-color);
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--base-color) inset;
+}
+header {
+  position: fixed;
+  width: 100%;
+  background-color: var(--base-color);
+}
+header div.header {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px auto;
+}
+header div.header input {
+  width: 100%;
+}
+header div.header h1 {
+  width: 100%;
+  margin-top: 0;
+  letter-spacing: -2px;
+}
+
+.container {
+  display: flex;
+  max-width: 1280px;
+  flex-wrap: wrap;
+  justify-content: left;
+  overflow: visible;
+  padding: 190px 30px 10px 30px;
+  margin: 0px auto;
+}
+
+.container__tile {
+  flex-grow: 1;
+  min-width: 300px;
+  height: 300px;
+  margin: 5px 10px;
+  border: 1px solid var(--light-gray-color);
+  background-color: var(--light-gray-color);
 }
