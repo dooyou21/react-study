@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 module.exports = {
   mode: 'development',
   entry: {
@@ -38,7 +39,8 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({template: "./src/index.html", filename: './index.html'}),
     new MiniCssExtractPlugin({filename: "[name].css", chunkFilename: "[id].css"}),
-    new LodashModuleReplacementPlugin
+    new LodashModuleReplacementPlugin,
+    new Dotenv()
   ],
   optimization: {},
   resolve: {
