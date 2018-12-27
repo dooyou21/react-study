@@ -2,12 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Todo from './Todo';
 
-const TodoList = ({todos, toggleTodo}) => {
-  return (
-    <ul>
-      {todos.map(todo => (<Todo key={todo.id} {...todo} onClick={() => toggleTodo(todo.id)}/>))}
-    </ul>
-  );
+class TodoList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.toggleTodo = props
+      .toggleTodo
+      .bind(this);
+    props.fetchTodo();
+  }
+
+  render() {
+    return (
+      <ul>
+        {this
+          .props
+          .todos
+          .map(todo => (<Todo key={todo.id} {...todo} onClick={() => this.toggleTodo(todo.id)}/>))}
+      </ul>
+    )
+  }
 }
 
 TodoList.propTypes = {

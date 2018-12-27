@@ -1,20 +1,26 @@
+import api from '../api';
+
 const todos = (state = [], action) => {
   switch (action.type) {
     case 'ADD_TODO':
+      api.addTodo({id: action.id, text: action.text, completed: false});
       return [
         ...state, {
           id: action.id,
           text: action.text,
           completed: false
         }
-      ]
+      ];
     case 'TOGGLE_TODO':
+      api.toggleTodo(action.id);
       return state.map(todo => todo.id === action.id
         ? {
           ...todo,
           completed: !todo.completed
         }
-        : todo)
+        : todo);
+    case 'FETCH_TODO':
+      return api.fetchTodo();
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import {toggleTodo} from '../actions';
+import {toggleTodo, fetchTodo} from '../actions';
 import TodoList from '../components/TodoList';
 import {VisibilityFilters} from '../actions';
 
@@ -16,12 +16,13 @@ const getVisibleTodos = (todos, filter) => {
   }
 }
 
-const mapStateToProps = state => ({ // components/App.js 에서 createStore 한 것을  props 로 넘겨주는데, 그거 받아옴
+const mapStateToProps = state => ({
   todos: getVisibleTodos(state.todos, state.visibilityFilter)
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleTodo: id => dispatch(toggleTodo(id))
+  toggleTodo: id => dispatch(toggleTodo(id)),
+  fetchTodo: () => dispatch(fetchTodo())
 });
 
 //react-redux connect
