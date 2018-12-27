@@ -1,26 +1,67 @@
 import React from "react";
-const App = () => {
-  return (
-    <div>
-      <header>
-        <div className="header">
-          <h1>Unsplash</h1>
-          <input
-            type="text"
-            maxLength="20"
-            placeholder="Search Free high-resolution photos"/>
-        </div>
-      </header>
-      <div className="container">
-        <div className="container__tile"></div>
-        <div className="container__tile"></div>
-        <div className="container__tile"></div>
-        <div className="container__tile"></div>
-        <div className="container__tile"></div>
-        <div className="container__tile"></div>
+import Header from "./Header.js";
+import ImageContainer from "../containers/ImageContainer.js";
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      columnCount: 3
+    }
+  }
+
+  _getColumnCount(width) {
+    return width > 960
+      ? 3
+      : width > 768
+        ? 2
+        : 1;
+  }
+
+  componentWillUpdate() {
+    // console.log(this.state.columnCount);
+  }
+
+  componentWillMount() {
+    let columnCount = this._getColumnCount(window.innerWidth);
+    /**
+     * get new datalist (from reducer) and set State
+     * 1: [a, b, c, d, e, f, g, h, i, ...]
+     * 2: [a, c, e, g, i, ...][b, d, f, h, ...]
+     * 3: [a, d, g, ...][b, e, h, ...][c, f, i, ...]
+     */
+
+    this.setState({
+      ...this.state,
+      columnCount
+    });
+  }
+
+  componentDidMount() {
+    window.addEventListener("resize", (e) => {
+      clearTimeout(this.resizeTimeout);
+      this.resizeTimeout = setTimeout(() => {
+        this._onResizeFinished();
+      }, 300);
+    });
+  }
+
+  _onResizeFinished() {
+    let columnCount = this._getColumnCount(window.innerWidth);
+    this.setState({
+      ...this.state,
+      columnCount
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <Header></Header>
+        <ImageContainer columnCount={this.state.columnCount}></ImageContainer>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default App;
