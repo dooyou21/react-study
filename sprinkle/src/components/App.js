@@ -1,13 +1,14 @@
 import React from "react";
 import Header from "./Header.js";
 import ImageContainer from "../containers/ImageContainer.js";
-
+import {fetchImage, searchImage} from "../api";
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       columnCount: 3
     }
+    this._fetchImage();
   }
 
   _getColumnCount(width) {
@@ -18,8 +19,26 @@ class App extends React.Component {
         : 1;
   }
 
-  componentWillUpdate() {
-    // console.log(this.state.columnCount);
+  _fetchImage() {
+    fetchImage().then((response) => {
+      console.log(response);
+      /*
+      this.setState({
+        iamges: response.data:
+      })
+      */
+    });
+  }
+
+  _getSearchedImage() {
+    searchImage().then((response) => {
+      console.log(response);
+      /*
+      this.setState({
+        iamges: response.data:
+      })
+      */
+    })
   }
 
   componentWillMount() {
@@ -30,7 +49,6 @@ class App extends React.Component {
      * 2: [a, c, e, g, i, ...][b, d, f, h, ...]
      * 3: [a, d, g, ...][b, e, h, ...][c, f, i, ...]
      */
-
     this.setState({
       ...this.state,
       columnCount
