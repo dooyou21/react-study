@@ -94,4 +94,7 @@ header div.header h1 {
   margin: 10px 5px;
   border: 1px solid var(--light-gray-color);
   background-color: var(--light-gray-color);
+  background-size: cover;
+  background-repeat: no-repeat;
+
 }

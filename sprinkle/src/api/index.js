@@ -1,19 +1,22 @@
 // console.log(process.env.UNSPLASH_ACCESS_KEY);
 
-import Unsplash, {toJson} from 'unsplash-js';
+import Unsplash, { toJson } from 'unsplash-js';
 // import {API_URL} from "unsplash-js/lib/constants";
 
-const unsplash = new Unsplash({applicationId: process.env.UNSPLASH_ACCESS_KEY, secret: process.env.UNSPLASH_SECRET_KEY, callbackUrl: ""});
-// unsplash   .auth .userAuthentication(process.env.UNSPLASH_AUTHORIZATION_CODE)
-//   .then(toJson)  .then(json => {     console.log(json);   });
+const unsplash = new Unsplash({ applicationId: process.env.UNSPLASH_ACCESS_KEY, secret: process.env.UNSPLASH_SECRET_KEY, callbackUrl: '' });
 
-export const fetchImage = () => {
+const pageLimit = 15;
+
+export function fetchImages(pageNo) {
+  const offset = pageNo * pageLimit + 1;
+  console.log(offset, pageLimit);
   return unsplash
     .photos
-    .listCuratedPhotos(1, 15, "latest")
+    .listCuratedPhotos(offset, pageLimit, 'latest')
     .then(toJson);
 }
-export const searchImage = (keyword, pageNo) => {
+
+export function searchImages(keyword, pageNo) {
   return unsplash
     .search
     .photos(keyword, pageNo)

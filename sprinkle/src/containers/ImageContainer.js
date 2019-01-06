@@ -1,47 +1,32 @@
-import React from "react";
+import { connect } from 'react-redux';
+import { API_URL } from 'unsplash-js/lib/constants';
+import {
+  getImages, getNextImages,
+} from '../actions';
 
-import Column from "../components/Column.js"
+import { fetchImages, searchImages } from '../api';
+import ImageLayout from '../components/ImageLayout';
 
-class ImageContainer extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const mapStateToProps = (state) => { // ownProps는 어디에 쓰는거지? 왜 있는거지?
+  const { images, keyword, pageNo } = state;
+  return ({
+    images,
+    keyword,
+    pageNo,
+  });
+};
 
-  _getDividedContainer() {
-    switch (this.props.columnCount) {
-      case 1:
-        return (
-          <div className="container">
-            <Column></Column>
-          </div>
-        );
-      case 2:
-        return (
-          <div className="container">
-            <Column></Column>
-            <Column></Column>
-          </div>
-        );
-      case 3:
-        return (
-          <div className="container">
-            <Column></Column>
-            <Column></Column>
-            <Column></Column>
-          </div>
-        );
-      default:
-        return (
-          <div className="container">
-            <Column></Column>
-          </div>
-        );
-    }
-  }
+const mapDispatchToProps = dispatch => ({
+  fetchImages: (pageNo) => {
+    fetchImages(pageNo).then(images => dispatch(getImages(images)));
+  },
+  searchImages: (keyword, pageNo) => {
+    searchImages(keyword, pageNo).then(images => dispatch(getImages(images)));
+  },
+  getNextImages: (keyword, pageNo) => {
+    // TODO: 계산해서 다음꺼 가져와야함..
+    dispatch(getNextImages(keyword, pageNo));
+  },
+});
 
-  render() {
-    return this._getDividedContainer();
-  }
-}
-
-export default ImageContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(ImageLayout);
